@@ -50,8 +50,8 @@ git clone https://github.com/egorpusto/task-manager.git
 cd finance-manager
 
 ### 2. Setup environment
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+1. python -m venv venv
+2. source venv/bin/activate  # Windows: venv\Scripts\activate
 
 ### 3. Install dependencies
 pip install -r requirements.txt
