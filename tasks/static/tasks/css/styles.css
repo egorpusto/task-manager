@@ -1,0 +1,64 @@
+.tag-selector {
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+:root {
+    --bg-light: #f8f9fa;
+    --text-light: #212529;
+    --bg-dark: #1a1a2e;
+    --text-dark: #e6e6e6;
+    --card-bg-dark: #16213e;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+.dark-mode .card {
+    background-color: var(--card-bg-dark);
+    border-color: #2a2a3a;
+    color: var(--text-dark);
+    /* Добавлено */
+}
+
+.dark-mode .card-text,
+.dark-mode .card-title,
+.dark-mode .text-muted {
+    color: var(--text-dark) !important;
+}
+
+.dark-mode .badge.bg-light {
+    background-color: #444 !important;
+    color: var(--text-dark) !important;
+}
+
+.dark-mode .alert-info {
+    background-color: #004085;
+    border-color: #004085;
+    color: white;
+}
+
+select[multiple] {
+    min-height: 120px;
+}
+
+select[multiple] option {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.select2-container--default .select2-selection--multiple {
+    min-height: 38px;
+    border: 1px solid #ced4da !important;
+}
