@@ -7,6 +7,31 @@ on:
     branches: [main]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check formatting (black)
+        run: black --check .
+
+      - name: Check imports (isort)
+        run: isort --check-only .
+
+      - name: Lint (flake8)
+        run: flake8 .
+
   test:
     runs-on: ubuntu-latest
 
@@ -30,17 +55,6 @@ jobs:
         ports:
           - 6379:6379
 
-    env:
-      SECRET_KEY: test-secret-key-for-ci-only
-      DEBUG: True
-      ALLOWED_HOSTS: localhost,127.0.0.1
-      DB_NAME: test_db
-      DB_USER: test_user
-      DB_PASSWORD: test_password
-      DB_HOST: localhost
-      DB_PORT: 5432
-      REDIS_URL: redis://127.0.0.1:6379/1
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -54,20 +68,17 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run tests
-        run: python manage.py test tasks --verbosity=2
-      
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Check formatting (black)
-        run: black --check .
-
-      - name: Check imports (isort)
-        run: isort --check-only .
-
-      - name: Lint (flake8)
-        run: flake8 .
+      - name: Create .env file
+        run: |
+          echo "SECRET_KEY=test-secret-key-for-ci-only" >> .env
+          echo "DEBUG=True" >> .env
+          echo "ALLOWED_HOSTS=localhost,127.0.0.1" >> .env
+          echo "DB_NAME=test_db" >> .env
+          echo "DB_USER=test_user" >> .env
+          echo "DB_PASSWORD=test_password" >> .env
+          echo "DB_HOST=localhost" >> .env
+          echo "DB_PORT=5432" >> .env
+          echo "REDIS_URL=redis://127.0.0.1:6379/1" >> .env
 
       - name: Run tests
         run: python manage.py test tasks --verbosity=2
