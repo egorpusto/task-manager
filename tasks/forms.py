@@ -1,25 +1,20 @@
 from django import forms
-from .models import Task, Tag
-from django_select2 import forms as s2forms
 
-
-class TagWidget(s2forms.ModelSelect2MultipleWidget):
-    search_fields = ['name__icontains']
+from .models import Tag, Task
 
 
 class TaskForm(forms.ModelForm):
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        required=False,
+        widget=forms.SelectMultiple(attrs={"class": "tags-select"}),
+    )
+
     class Meta:
         model = Task
-        fields = ['title', 'description',
-                  'priority', 'status', 'deadline', 'tags']
+        fields = ["title", "description", "priority", "status", "deadline", "tags"]
         widgets = {
-            'tags': TagWidget(attrs={
-                'data-placeholder': 'Выберите теги...',
-                'data-width': '100%'
-            }),
-            'deadline': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            "deadline": forms.DateTimeInput(
+                attrs={"type": "datetime-local"}, format="%Y-%m-%dT%H:%M"
+            ),
         }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['tags'].queryset = Tag.objects.all()

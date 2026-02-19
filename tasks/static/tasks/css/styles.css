@@ -1,25 +1,25 @@
-.tag-selector {
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    padding: 10px;
-    max-height: 150px;
-    overflow-y: auto;
-}
-
+/* ─── Variables ─────────────────────────────────────────────────────────────── */
 :root {
     --bg-light: #f8f9fa;
     --text-light: #212529;
     --bg-dark: #1a1a2e;
     --text-dark: #e6e6e6;
     --card-bg-dark: #16213e;
+    --border-dark: #2a2a3a;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.14);
+    --transition: 0.2s ease;
 }
 
+/* ─── Base ───────────────────────────────────────────────────────────────────── */
 body {
     background-color: var(--bg-light);
     color: var(--text-light);
     transition: background 0.3s, color 0.3s;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
+/* ─── Dark Mode ──────────────────────────────────────────────────────────────── */
 body.dark-mode {
     background-color: var(--bg-dark);
     color: var(--text-dark);
@@ -27,9 +27,8 @@ body.dark-mode {
 
 .dark-mode .card {
     background-color: var(--card-bg-dark);
-    border-color: #2a2a3a;
+    border-color: var(--border-dark);
     color: var(--text-dark);
-    /* Добавлено */
 }
 
 .dark-mode .card-text,
@@ -49,6 +48,119 @@ body.dark-mode {
     color: white;
 }
 
+.dark-mode .alert-success {
+    background-color: #1a3a2a;
+    color: #a5d6a7;
+}
+
+.dark-mode .alert-danger {
+    background-color: #3a1a1a;
+    color: #ef9a9a;
+}
+
+.dark-mode .form-control,
+.dark-mode .form-select {
+    background-color: #1e1e3a;
+    color: var(--text-dark);
+    border-color: #3d3d6b;
+}
+
+.dark-mode .form-control:focus,
+.dark-mode .form-select:focus {
+    background-color: #1e1e3a;
+    color: var(--text-dark);
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.2);
+}
+
+.dark-mode .navbar {
+    background-color: #0f0f1a !important;
+}
+
+.dark-mode .page-link {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-dark);
+    color: #90caf9;
+}
+
+.dark-mode .bg-light {
+    background-color: var(--card-bg-dark) !important;
+    color: var(--text-dark) !important;
+}
+
+/* Select2 dark mode */
+.dark-mode .select2-container--default .select2-selection--multiple {
+    background-color: #1e1e3a;
+    border-color: #3d3d6b;
+}
+
+.dark-mode .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #2d2d6e;
+    border-color: #4a4a9e;
+    color: var(--text-dark);
+}
+
+.dark-mode .select2-dropdown {
+    background-color: var(--card-bg-dark);
+    border-color: #3d3d6b;
+    color: var(--text-dark);
+}
+
+.dark-mode .select2-container--default .select2-results__option--highlighted {
+    background-color: #0d6efd;
+}
+
+.dark-mode .select2-search__field {
+    background-color: #1e1e3a;
+    color: var(--text-dark);
+}
+
+/* ─── Cards ──────────────────────────────────────────────────────────────────── */
+.card {
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.task-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────────────────── */
+.btn {
+    border-radius: 8px;
+    transition: all var(--transition);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* ─── Pagination ─────────────────────────────────────────────────────────────── */
+.page-link {
+    border-radius: 8px !important;
+    margin: 0 2px;
+    transition: all var(--transition);
+}
+
+.page-link:hover {
+    background-color: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+}
+
+/* ─── Select2 ────────────────────────────────────────────────────────────────── */
+.select2-container--default .select2-selection--multiple {
+    min-height: 38px;
+    border: 1px solid #ced4da !important;
+    border-radius: 8px !important;
+}
+
 select[multiple] {
     min-height: 120px;
 }
@@ -58,7 +170,8 @@ select[multiple] option {
     border-bottom: 1px solid #eee;
 }
 
-.select2-container--default .select2-selection--multiple {
-    min-height: 38px;
-    border: 1px solid #ced4da !important;
+/* ─── Badges ─────────────────────────────────────────────────────────────────── */
+.badge {
+    border-radius: 6px;
+    font-weight: 500;
 }
