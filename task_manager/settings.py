@@ -23,6 +23,9 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "tasks.apps.TasksConfig",
+    "accounts.apps.AccountsConfig",
+    "django_filters",
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [
@@ -92,6 +95,10 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
+# ─── User model ──────────────────────────────────────────────────────
+
+AUTH_USER_MODEL = "accounts.User"
+
 # ─── Internationalisation ─────────────────────────────────────────────────────
 
 LANGUAGE_CODE = "en-us"
@@ -118,3 +125,24 @@ LOGOUT_REDIRECT_URL = "login"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# ─── Celery ───────────────────────────────────────────────────────────────────
+
+CELERY_BROKER_URL = config("REDIS_URL", default="redis://127.0.0.1:6379/1")
+CELERY_RESULT_BACKEND = config("REDIS_URL", default="redis://127.0.0.1:6379/1")
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_TRACK_STARTED = True
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+
+# ─── Email ────────────────────────────────────────────────────────────────────
+
+EMAIL_BACKEND = config(
+    "EMAIL_BACKEND",
+    default="django.core.mail.backends.console.EmailBackend",
+)
+EMAIL_HOST = config("EMAIL_HOST", default="")
+EMAIL_PORT = config("EMAIL_PORT", default=587, cast=int)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="noreply@taskmanager.com")

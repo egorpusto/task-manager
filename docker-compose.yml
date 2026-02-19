@@ -1,5 +1,4 @@
 services:
-
   db:
     image: postgres:16-alpine
     restart: unless-stopped
@@ -43,6 +42,36 @@ services:
     command: >
       sh -c "python manage.py migrate &&
              gunicorn task_manager.wsgi:application --bind 0.0.0.0:8000 --workers 2"
+
+  celery_worker:
+    build: .
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+      REDIS_URL: redis://redis:6379/1
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    command: celery -A task_manager worker --loglevel=info
+
+  celery_beat:
+    build: .
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+      REDIS_URL: redis://redis:6379/1
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    command: celery -A task_manager beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
 
 volumes:
   postgres_data:
