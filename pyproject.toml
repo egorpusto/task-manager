@@ -13,3 +13,28 @@ exclude = '''
 [tool.isort]
 profile = "black"
 skip = ["migrations", "venv", "staticfiles"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "task_manager.settings"
+python_files = ["tests.py", "test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--tb=short"
+pythonpath = ["."]
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "*/migrations/*",
+    "*/venv/*",
+    "manage.py",
+    "task_manager/asgi.py",
+    "task_manager/wsgi.py",
+    "task_manager/celery_app.py",
+    "tasks/management/*",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+fail_under = 80
