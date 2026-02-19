@@ -30,7 +30,7 @@ jobs:
         run: isort --check-only .
 
       - name: Lint (flake8)
-        run: flake8 . --max-line-length=88 --extend-exclude=accounts/migrations,tasks/migrations --extend-ignore=E203,W503
+        run: flake8 . --config=setup.cfg
 
   test:
     runs-on: ubuntu-latest
