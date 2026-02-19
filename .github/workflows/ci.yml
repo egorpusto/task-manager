@@ -80,5 +80,14 @@ jobs:
           echo "DB_PORT=5432" >> .env
           echo "REDIS_URL=redis://127.0.0.1:6379/1" >> .env
 
-      - name: Run tests
-        run: python manage.py test tasks --verbosity=2
+      - name: Run tests with coverage
+        run: |
+          coverage run -m pytest
+          coverage report
+          coverage xml
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
