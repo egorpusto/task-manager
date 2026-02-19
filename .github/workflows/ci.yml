@@ -30,7 +30,7 @@ jobs:
         run: isort --check-only .
 
       - name: Lint (flake8)
-        run: flake8 .
+        run: flake8 . --config=setup.cfg
 
   test:
     runs-on: ubuntu-latest
