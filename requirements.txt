@@ -7,4 +7,4 @@ sqlparse==0.5.3
 # Dev tools
 flake8>=7.0
 black>=24.0
-isort>=5.13
+isort>=5.13python-decouple>=3.8

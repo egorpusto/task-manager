@@ -72,7 +72,7 @@ A clean, production-ready task manager with user authentication, task filtering,
 1. **Clone the repository:**
 ```bash
 git clone https://github.com/egorpusto/task-manager.git
-cd <название_репо>
+cd task-manager
 ```
 
 2. **Create `.env` file:**

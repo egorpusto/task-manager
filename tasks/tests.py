@@ -35,8 +35,8 @@ class TaskModelTest(TestCase):
         self.assertEqual(task.priority, "medium")
 
     def test_task_ordering(self):
-        Task.objects.create(user=self.user, title='First')
-        task2 = Task.objects.create(user=self.user, title='Second')
+        Task.objects.create(user=self.user, title="First")
+        task2 = Task.objects.create(user=self.user, title="Second")
         tasks = Task.objects.all()
         self.assertEqual(tasks[0], task2)
 
