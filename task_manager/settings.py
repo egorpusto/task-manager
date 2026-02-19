@@ -78,8 +78,6 @@ CACHES = {
     }
 }
 
-SELECT2_CACHE_BACKEND = "default"
-
 # ─── Password validation ──────────────────────────────────────────────────────
 
 AUTH_PASSWORD_VALIDATORS = [
