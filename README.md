@@ -175,8 +175,7 @@ Every push and pull request to `main` triggers:
 ```
 
 ## 🏗️ Project Structure
-
-​```
+```
 task_manager/
 ├── manage.py
 ├── task_manager/           # Django project config
@@ -216,7 +215,7 @@ task_manager/
 ├── requirements.txt
 ├── .env.example
 └── .gitignore
-​```
+```
 
 ## 🐳 Docker Services
 
